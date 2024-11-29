@@ -33,7 +33,7 @@ export class AuthService {
       
     } catch (error) {
       if (error.code === '23505') {
-        throw new ForbiddenException('Email already taken');
+        throw new ForbiddenException('Username already taken ');
       }
       throw error;
     }
@@ -48,13 +48,13 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new ForbiddenException('Credentials incorrect');
+      throw new ForbiddenException('Credentials incorrect 🥹');
     }
 
     const passwordMatches = await bcrypt.compare(password, user.password);
     
     if (!passwordMatches) {
-      throw new ForbiddenException('Credentials incorrect');
+      throw new ForbiddenException('Credentials incorrect 🥹');
     }
 
     return this.signToken(user.id, user.username);
