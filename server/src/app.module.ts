@@ -21,6 +21,9 @@ import { TasksModule } from './tasks/tasks.module';
         database: configService.get('DATABASE_NAME'),
         autoLoadEntities: true,
         synchronize: process.env.NODE_ENV !== 'production',
+        ssl: {
+          rejectUnauthorized: false,
+        },
       }),
       inject: [ConfigService],
     }),
@@ -29,4 +32,4 @@ import { TasksModule } from './tasks/tasks.module';
     TasksModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }
