@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useNavigate } from "react-router-dom"
 import axios from 'axios';
 import "./Tasks.css"
 
@@ -8,6 +9,8 @@ function Tasks() {
   const [isAdding, setIsAdding] = useState(false);
   const token = localStorage.getItem('token');
   const API_URL = process.env.REACT_APP_API_URL;
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetchTasks();
@@ -60,10 +63,10 @@ function Tasks() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    window.location.reload();
-  };
+  const handleLogout = useCallback(() => {
+    localStorage.removeItem("token");
+    window.location.href = '/';
+  }, [navigate]);
 
   return (
     <div className="tasks-container">
@@ -72,15 +75,15 @@ function Tasks() {
       </button>
 
       <button className="logout-button" onClick={handleLogout} title="Logout">
-        <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          width="24" 
-          height="24" 
-          viewBox="0 0 24 24" 
-          fill="none" 
-          stroke="currentColor" 
-          strokeWidth="2" 
-          strokeLinecap="round" 
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
           strokeLinejoin="round"
         >
           <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
